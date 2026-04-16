@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenz Pro AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo"><i class="fas fa-wallet"></i></div>
+            <ul class="nav-links">
+                <li class="active" data-target="dashboard"><i class="fas fa-columns"></i></li>
+                <li data-target="transactions"><i class="fas fa-list"></i></li>
+                <li data-target="analytics"><i class="fas fa-chart-pie"></i></li>
+                <li data-target="planner"><i class="fas fa-magic"></i></li>
+                <li data-target="settings"><i class="fas fa-cog"></i></li>
+            </ul>
+            <div class="theme-toggle" id="theme-btn"><i class="fas fa-moon"></i></div>
+        </nav>
+
+        <main class="viewport">
+            <section id="dashboard" class="page active">
+                <div class="welcome-header">
+                    <h2 id="engagement-msg">"Loading your financial health..."</h2>
+                    <button class="add-btn neo-outset" id="open-modal"><i class="fas fa-plus"></i></button>
+                </div>
+
+                <div class="top-stats">
+                    <div class="safe-card neo-inset">
+                        <small>Safe to Spend Today</small>
+                        <h2 id="safe-val">₹0</h2>
+                    </div>
+                </div>
+
+                <div class="balance-card neo-outset glass">
+                    <p>Net Balance</p>
+                    <h1 id="total-balance">₹0.00</h1>
+                    <div class="stats-row">
+                        <div class="stat"><small>Income</small><p class="txt-up" id="total-income">₹0</p></div>
+                        <div class="stat"><small>Expense</small><p class="txt-down" id="total-expense">₹0</p></div>
+                    </div>
+                </div>
+
+                <h3>Recent Entries</h3>
+                <div id="recent-items" class="scroll-box"></div>
+            </section>
+
+            <section id="transactions" class="page">
+                <div class="header-flex">
+                    <h1>History</h1>
+                    <button class="neo-outset pdf-btn" onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+                </div>
+                <input type="text" id="search-bar" placeholder="Search entries..." class="neo-inset-input">
+                <div id="full-history" class="scroll-box"></div>
+            </section>
+
+            <section id="analytics" class="page">
+                <h1>Insights</h1>
+                <div class="chart-wrapper neo-outset">
+                    <canvas id="mainChart"></canvas>
+                    <div class="chart-overlay">
+                        <small>Total Spent</small>
+                        <h3 id="chart-total">₹0</h3>
+                    </div>
+                </div>
+                <div id="budget-alert" class="neo-outset glass warning-card" style="display:none"></div>
+            </section>
+
+            <section id="planner" class="page">
+                <h1>Savings Planner</h1>
+                <div class="neo-outset glass">
+                    <p>Agar main roz itna bachaun...</p>
+                    <input type="number" id="calc-daily" class="neo-inset-input" placeholder="Daily saving amount">
+                    <div class="plan-result">
+                        <p>1 Month: <span id="plan-month">₹0</span></p>
+                        <p>1 Year: <span id="plan-year">₹0</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="settings" class="page">
+                <h1>Settings</h1>
+                <div class="neo-outset">
+                    <label>Monthly Budget Limit</label>
+                    <input type="number" id="budget-limit-input" class="neo-inset-input">
+                    <button id="clear-data" class="danger-btn neo-outset">Clear All Data</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-box neo-outset">
+            <h2 id="modal-title">New Entry</h2>
+            <input type="hidden" id="edit-id">
+            <div class="toggle-container neo-inset-input">
+                <label><input type="radio" name="t-type" value="expense" checked> Expense</label>
+                <label><input type="radio" name="t-type" value="income"> Income</label>
+            </div>
+            <input type="text" id="in-desc" placeholder="Label (e.g., Dinner)" class="neo-inset-input">
+            <input type="number" id="in-amt" placeholder="Amount" class="neo-inset-input">
+            <select id="in-cat" class="neo-inset-input">
+                <option value="Food">🍔 Food</option>
+                <option value="Bills">⚡ Bills</option>
+                <option value="Travel">🚕 Travel</option>
+                <option value="Shopping">🛍️ Shopping</option>
+                <option value="Misc">✨ Misc</option>
+            </select>
+            <div class="modal-actions">
+                <button id="save-txn" class="primary-btn neo-outset">Save</button>
+                <button id="close-modal" class="neo-outset">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

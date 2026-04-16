@@ -1,0 +1,65 @@
+:root {
+    --bg: #e0e5ec;
+    --shadow: #a3b1c6;
+    --light: #ffffff;
+    --primary: #6d5dfc;
+    --up: #2ecc71;
+    --down: #e74c3c;
+}
+
+body.dark-mode {
+    --bg: #1b1d21;
+    --shadow: #121417;
+    --light: #24272c;
+    color: #ecf0f1;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; transition: background 0.3s, color 0.3s; }
+body { background: var(--bg); height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
+.app-container {
+    width: 95%; max-width: 1000px; height: 90vh;
+    background: var(--bg); border-radius: 40px; display: flex;
+    box-shadow: 20px 20px 60px var(--shadow), -20px -20px 60px var(--light);
+}
+
+/* Sidebar & Nav */
+.sidebar { width: 80px; display: flex; flex-direction: column; align-items: center; padding: 30px 0; border-right: 1px solid rgba(255,255,255,0.1); }
+.nav-links li { list-style: none; width: 50px; height: 50px; margin: 15px 0; display: flex; align-items: center; justify-content: center; border-radius: 12px; cursor: pointer; color: #888; }
+.nav-links li.active { box-shadow: inset 4px 4px 8px var(--shadow), inset -4px -4px 8px var(--light); color: var(--primary); }
+.theme-toggle { margin-top: auto; cursor: pointer; color: var(--primary); }
+
+/* Pages */
+.viewport { flex: 1; padding: 30px; position: relative; overflow-y: auto; }
+.page { display: none; animation: fadeIn 0.4s; }
+.page.active { display: block; }
+
+/* Neo & Glass Components */
+.neo-outset { border-radius: 20px; background: var(--bg); box-shadow: 8px 8px 16px var(--shadow), -8px -8px 16px var(--light); padding: 20px; border:none; outline:none; }
+.neo-inset-input { width: 100%; border: none; background: var(--bg); padding: 15px; border-radius: 15px; box-shadow: inset 4px 4px 8px var(--shadow), inset -4px -4px 8px var(--light); margin-bottom: 20px; outline: none; }
+.glass { background: rgba(255, 255, 255, 0.1) !important; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+
+/* UI Elements */
+.welcome-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.balance-card { text-align: center; margin-bottom: 25px; }
+.stats-row { display: flex; justify-content: space-around; margin-top: 15px; }
+.scroll-box { height: 300px; overflow-y: auto; padding-right: 10px; }
+.txn-card { display: flex; justify-content: space-between; padding: 15px; margin-bottom: 12px; border-radius: 15px; }
+
+/* Chart wrapper */
+.chart-wrapper { position: relative; height: 300px; display: flex; justify-content: center; align-items: center; }
+.chart-overlay { position: absolute; text-align: center; pointer-events: none; }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.1); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+.modal-box { width: 90%; max-width: 400px; }
+.primary-btn { background: var(--primary) !important; color: white !important; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-container { flex-direction: column; border-radius: 0; width: 100%; height: 100%; }
+    .sidebar { width: 100%; height: 70px; flex-direction: row; order: 2; border: none; border-top: 1px solid var(--shadow); }
+    .nav-links { flex-direction: row; width: 100%; justify-content: space-around; }
+    .nav-links li { margin: 0; }
+    .viewport { order: 1; }
+}
